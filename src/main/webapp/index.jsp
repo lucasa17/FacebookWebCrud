@@ -24,6 +24,7 @@
 							<th scope="col">Nome</th>
 							<th scope="col">Sexo</th>
 							<th scope="col">Email</th>
+							<th scope="col">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -34,6 +35,11 @@
 								<td>${usuario.getName()}</td>
 								<td>${usuario.getGender()}</td>
 								<td>${usuario.getEmail()}</td>
+								<td>
+									<a class="bi bi-pencil-square" href="${pageContext.request.contextPath}/users/update?userId=${usuario.getId()}"></a>
+									
+									<a class="bi bi-trash" href="${pageContext.request.contextPath}/users/delete"></a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

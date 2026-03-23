@@ -14,7 +14,7 @@ import model.User;
 import model.dao.DAOFactory;
 import model.dao.UserDAO;
 
-@WebServlet(urlPatterns = {"/users" , "/users/save"})
+@WebServlet(urlPatterns = {"/users" , "/users/save" , "/users/update"})
 public class UsersControler extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
@@ -40,9 +40,30 @@ public class UsersControler extends HttpServlet{
 			resp.sendRedirect("/facebook/users");
 			break;
 		}
+		case"/facebook/users/update": {			
+			loadUser(req);
+			RequestDispatcher rd = req.getRequestDispatcher("/users/form_user.jsp");
+			rd.forward(req, resp);
+			break;
+		}
 		default:
 			throw new IllegalArgumentException("Unexpeced value: "+ action);
 		}
+	}
+	
+	private void loadUser(HttpServletRequest req) {
+		String userIdStr = req.getParameter("userId");
+		int userId = Integer.parseInt(userIdStr);
+		
+		UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);
+		User userToBeUpdated = null;
+		try {
+			userToBeUpdated = userDAO.findById(userId);
+		} catch (ModelException e) {
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("usuario", userToBeUpdated);
 	}
 	
 	private void insertUser(HttpServletRequest req) {
