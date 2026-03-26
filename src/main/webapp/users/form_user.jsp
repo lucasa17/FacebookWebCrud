@@ -22,6 +22,8 @@
 						<input class="form-control" type="text" id="user_name_id" name="user_name" placeholder="Nome" value="${usuario.getName()}">
 					</div>
 						
+						<input type="hidden" name="user_id" value="${usuario.getId()}">
+						
 					<div class="mb-3">
 						<label class="form-label">Gênero:</label>
 						<div class="form-check">

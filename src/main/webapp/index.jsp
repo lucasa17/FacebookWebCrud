@@ -28,7 +28,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						
 						<c:forEach var="usuario" items="${usuarios}">
 							<tr>
 								<td>${usuario.getId()}</td>
