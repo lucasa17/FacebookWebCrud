@@ -13,8 +13,9 @@ import model.ModelException;
 import model.User;
 import model.dao.DAOFactory;
 import model.dao.UserDAO;
+import model.utils.PasswordEncryptor;
 
-@WebServlet(urlPatterns = {"/users" , "/users/save" , "/users/update"})
+@WebServlet(urlPatterns = {"/users" , "/users/save" , "/users/update", "/users/delete"})
 public class UsersControler extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,7 @@ public class UsersControler extends HttpServlet{
 			loadUsers(req);
 			
 			// Redirecionamento para a pagina de tratamento (index)
-			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/users/users.jsp");
 			rd.forward(req, resp);
 			break;
 		}
@@ -53,8 +54,29 @@ public class UsersControler extends HttpServlet{
 			rd.forward(req, resp);
 			break;
 		}
+		case"/facebook/users/delete": {
+			deleteUser(req);
+			
+			resp.sendRedirect("/facebook/users");
+			break;
+		}
 		default:
 			throw new IllegalArgumentException("Unexpeced value: "+ action);
+		}
+	}
+	
+	private void deleteUser(HttpServletRequest req) {
+		String userIdStr = req.getParameter("userId");
+		int userId = Integer.parseInt(userIdStr);
+		
+		User user = new User(userId);
+		
+		UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);
+		
+		try {
+			userDAO.delete(user);
+		}catch (ModelException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -115,6 +137,7 @@ public class UsersControler extends HttpServlet{
 		String userName = req.getParameter("user_name");
 		String userGender = req.getParameter("user_gender");
 		String userEmail = req.getParameter("user_email");
+		String userPw = req.getParameter("user_pw");
 		
 		User user;
 		if(userId == null) {
@@ -127,7 +150,8 @@ public class UsersControler extends HttpServlet{
 		user.setName(userName);
 		user.setGender(userGender);
 		user.setEmail(userEmail);
-		user.setPassword("");
+		String userPWHash = PasswordEncryptor.hashPassword(userPw);
+		user.setPassword(userPWHash);
 		
 		return user;
 	}

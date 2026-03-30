@@ -17,10 +17,15 @@
 			<div class="col-md-6">
 				<form action="${pageContext.request.contextPath}/users/save" method="GET">
 					<h1>${usuario eq null ? "Cadastro" : "Atualização"} de Usuário</h1>
+					
+					<div class="mb-3">
+						<a class="bi bi-person" href="${pageContext.request.contextPath}/users"> Usuários</a>
+					</div>
+							
 					<div class="mb-3">
 						<label for="user_name_id" class="form-label">Nome do Usuário:</label>
 						<input class="form-control" type="text" id="user_name_id" name="user_name" placeholder="Nome" value="${usuario.getName()}">
-					</div>
+					</div>	
 						
 						<input type="hidden" name="user_id" value="${usuario.getId()}">
 						
@@ -39,6 +44,11 @@
 					<div class="mb-3">
 						<label for="user_email_id" class="form-label">Email:</label>
 						<input class="form-control" type="text" id="user_email_id" name="user_email" placeholder="Email" value="${usuario.getEmail()}">
+					</div>
+					
+					<div class="mb-3">
+						<label for="user_pw_id" class="form-label">Senha:</label>
+						<input class="form-control" type="password" id="user_pw_id" name="user_pw" placeholder="Senha"">
 					</div>
 					
 					<button type="submit" class="btn btn-primary">${usuario eq null ? "Cadastrar" : "Atualizar"}</button>
