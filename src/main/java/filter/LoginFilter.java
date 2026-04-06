@@ -13,23 +13,26 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebFilter("/*")
 public class LoginFilter implements Filter {
-
+	
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, 
+			             ServletResponse resp, 
+			             FilterChain chain)
+			throws IOException, ServletException {
+		
 		var httpReq = (HttpServletRequest) req;
 		var httpResp = (HttpServletResponse) resp;
 		
 		String uri = httpReq.getRequestURI();
-				
-		boolean isPublicResource = uri.endsWith("login.jsp") || uri.contains("/css/") || uri.contains("/js/");
+		boolean isPublicResource = uri.endsWith("/login") 
+				|| uri.endsWith("login.jsp") 
+				|| uri.contains("/css/") || uri.contains("/js/");
 		
-		boolean isLoggedUser = httpReq.getSession().getAttribute("usuario_logado") != null;
+		boolean isLoggedUser = 
+				httpReq.getSession().getAttribute("usuario_logado") != null;
 		
-		if(isPublicResource || isLoggedUser) {
+		if (isLoggedUser || isPublicResource)
 			chain.doFilter(req, resp);
-		}
-		else {
-			httpResp.sendRedirect("/facebook/login.jsp");
-		}
-			}
+		else httpResp.sendRedirect("/facebook/login.jsp");
+	}
 }
