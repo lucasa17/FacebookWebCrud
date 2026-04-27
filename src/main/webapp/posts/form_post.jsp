@@ -31,9 +31,9 @@
                         <label class="form-label text-uppercase small">Quem está postando?</label>
                         <select name="user_id" class="form-select shadow-sm" required>
                             <option value="">Selecione o perfil...</option>
-                            <c:forEach var="u" items="${usuarios}">
-                                <option value="${u.id}" ${post.user.id == u.id ? 'selected' : ''}>
-                                    ${u.name}
+                            <c:forEach var="user" items="${usuarios}">
+                                <option value="${user.id}" ${post.user.id == user.id ? 'selected' : ''}>
+                                    ${user.name}
                                 </option>
                             </c:forEach>
                         </select>

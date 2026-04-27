@@ -50,30 +50,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="p" items="${posts}">
+                        <c:forEach var="post" items="${posts}">
                             <tr>
-                                <td class="text-center text-muted fw-bold">${p.id}</td>
+                                <td class="text-center text-muted fw-bold">${post.id}</td>
                                 <td>
                                     <span class="author-badge text-decoration-none">
-                                        <i class="bi bi-person-circle me-1"></i> ${p.user.name}
+                                        <i class="bi bi-person-circle me-1"></i> ${post.user.name}
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="post-content-preview" title="${p.content}">
-                                        ${p.content}
+                                    <div class="post-content-preview" title="${post.content}">
+                                        ${post.content}
                                     </div>
                                 </td>
                                 <td class="text-muted small">
-                                    <i class="bi bi-calendar3 me-1"></i> ${p.postDate}
+                                    <i class="bi bi-calendar3 me-1"></i> ${post.postDate}
                                 </td>
                                 <td class="text-end">
                                     <div class="btn-group shadow-sm">
                                         <a title="Editar" class="btn btn-edit btn-action" 
-                                           href="${pageContext.request.contextPath}/posts/update?postId=${p.id}">
+                                           href="${pageContext.request.contextPath}/posts/update?postId=${post.id}">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <a title="Excluir" class="btn btn-delete btn-action"
-                                           href="${pageContext.request.contextPath}/posts/delete?postId=${p.id}"
+                                           href="${pageContext.request.contextPath}/posts/delete?postId=${post.id}"
                                            onclick="return confirm('Deseja realmente excluir este post?')">
                                             <i class="bi bi-trash"></i>
                                         </a>
