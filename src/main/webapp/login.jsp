@@ -29,7 +29,7 @@
           <h2 class="text-center mb-4">Login</h2>
           <form action="/facebook/login" method="POST">
             <div class="mb-3">
-              <label for="user_login_id" class="form-label">Login (e-mail)</label>
+              <label for="user_login_id" class="form-label">Email</label>
               <input type="text" class="form-control" id="user_login_id" name="user_login" required />
             </div>
             

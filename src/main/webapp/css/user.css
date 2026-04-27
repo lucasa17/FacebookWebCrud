@@ -1,0 +1,65 @@
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        .navbar-custom {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,.08);
+        }
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 25px;
+            border: none;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            color: #65676b;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background-color: #e4e6eb;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #1c1e21;
+        }
+        .gender-badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .gender-m { background-color: #e7f3ff; color: #1877f2; }
+        .gender-f { background-color: #fce9f2; color: #d02670; }
+        
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-edit { color: #1877f2; background: #e7f3ff; }
+        .btn-edit:hover { background: #d0e7ff; }
+        .btn-delete { color: #dc3545; background: #ffeef0; }
+        .btn-delete:hover { background: #ffd0d6; }
+        
+        .btn-add-user {
+            background-color: #1877f2;
+            border: none;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        .btn-add-user:hover { background-color: #166fe5; }

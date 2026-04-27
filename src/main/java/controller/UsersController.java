@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelException;
 import model.User;
 import model.dao.DAOFactory;
+import model.dao.PostDAO;
 import model.dao.UserDAO;
 import model.utils.PasswordEncryptor;
 
@@ -47,15 +48,15 @@ public class UsersController extends HttpServlet {
 			
 			resp.sendRedirect("/facebook/users");
 			break;
-		} case "/facebook/users/update": {
-			
+		} 
+		case"/facebook/users/update": {			
 			loadUser(req);
 			
-			RequestDispatcher rd = 
-					req.getRequestDispatcher("/users/form_user.jsp");		
+			RequestDispatcher rd = req.getRequestDispatcher("/users/form_user.jsp");
 			rd.forward(req, resp);
 			break;
-		} case "/facebook/users/delete": {	
+		}
+		case "/facebook/users/delete": {	
 			// Deletar o usuário
 			deleteUser(req);
 			// Redirecionar para a listagem de usuário
@@ -68,18 +69,27 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private void deleteUser(HttpServletRequest req) {
-		String userIdStr = req.getParameter("userId");
-		int userId = Integer.parseInt(userIdStr);
-		
-		User user = new User(userId);
-		
-		UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);	
-		try {
-			userDAO.delete(user);
-		} catch (ModelException e) {
-			// Log no servidor
-			e.printStackTrace();
-		}
+	    String userIdStr = req.getParameter("userId");
+	    int userId = Integer.parseInt(userIdStr);
+	    
+	    // Precisamos de ambos os DAOs
+	    UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);
+	    PostDAO postDAO = DAOFactory.createDAO(PostDAO.class); // <-- Instancie o PostDAO
+	    
+	    try {
+	        // 1. Apaga primeiro todos os posts vinculados a esse ID
+	        // (Você precisa ter o método deleteByUserId no seu MySQLPostDAO)
+	        postDAO.deleteByUserId(userId);
+	        
+	        // 2. Agora que o usuário não tem mais "vínculos", podemos apagá-lo
+	        User user = new User(userId);
+	        userDAO.delete(user);
+	        
+	    } catch (ModelException e) {
+	        // Log no servidor
+	        e.printStackTrace();
+	        // Dica: Seria legal colocar um aviso na sessão para mostrar ao usuário que deu erro
+	    }
 	}
 	
 	private void loadUser(HttpServletRequest req) {
@@ -91,23 +101,19 @@ public class UsersController extends HttpServlet {
 		try {
 			userToBeUpdated = userDAO.findById(userId);
 		} catch (ModelException e) {
-			// Log no servidor
 			e.printStackTrace();
 		}
 		
-		// Colocar no contexto da requisição original
-		req.setAttribute("usuario", userToBeUpdated);	
+		req.setAttribute("usuario", userToBeUpdated);
 	}
 	
-	private void updateUser(HttpServletRequest req, int userId){
+	private void updateUser(HttpServletRequest req, int userId) {
 		User user = fillUser(req, userId);
 		
-		// Criar um UserDAO e atualiza o user
-		UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);	
+		UserDAO userDAO = DAOFactory.createDAO(UserDAO.class);
 		try {
 			userDAO.update(user);
-		} catch (ModelException e) {
-			// Log no servidor
+		}catch(ModelException e) {
 			e.printStackTrace();
 		}
 	}
@@ -141,25 +147,28 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private User fillUser(HttpServletRequest req, Integer userId) {
-		// Recuperar os dados do form
-		String userName = req.getParameter("user_name");
-		String userGender = req.getParameter("user_gender");
-		String userEmail = req.getParameter("user_email");
-		String userPW = req.getParameter("user_pw");
-		
-		// Criar um User a partir dos dados do form
-		User user;
-		if (userId == null) user = new User();
-		else user = new User(userId);
-		
-		user.setName(userName);
-		user.setGender(userGender);
-		user.setEmail(userEmail);
-		
-		// Criptografando a senha (Emerson@Senha)
-		String userPWHash = PasswordEncryptor.hashPassword(userPW);
-		user.setPassword(userPWHash);
-		
-		return user;
+	    String userName = req.getParameter("user_name");
+	    String userGender = req.getParameter("user_gender");
+	    String userEmail = req.getParameter("user_email");
+	    String userPW = req.getParameter("user_pw");
+	    
+	    User user;
+	    if (userId == null) {
+	        user = new User();
+	    } else {
+	        user = new User(userId);
+	    }
+	    
+	    user.setName(userName);
+	    user.setGender(userGender);
+	    user.setEmail(userEmail);
+	    
+	    if (userPW != null && !userPW.trim().isEmpty()) {
+	        String userPWHash = PasswordEncryptor.hashPassword(userPW);
+	        user.setPassword(userPWHash);
+	    } else if (userId == null) {
+	        user.setPassword(PasswordEncryptor.hashPassword(userPW));
+	    }
+	return user;
 	}
 }

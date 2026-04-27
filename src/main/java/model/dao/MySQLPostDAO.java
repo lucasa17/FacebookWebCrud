@@ -29,14 +29,13 @@ public class MySQLPostDAO implements PostDAO {
 		
 		DBHandler db = new DBHandler();
 		
-		String sqlUpdate = "UPDATE posts "
-						 + " SET content = ? "
-						 + " WHERE id = ?;";
+		String sqlUpdate = "UPDATE posts SET content = ?, user_id = ? WHERE id = ?;";
 		
 		db.prepareStatement(sqlUpdate);
 		
 		db.setString(1, post.getContent());
-		db.setInt(2, post.getId());
+		db.setInt(2, post.getUser().getId());
+		db.setInt(3, post.getId());
 		
 		return db.executeUpdate() > 0;
 	}
@@ -53,6 +52,19 @@ public class MySQLPostDAO implements PostDAO {
 		db.setInt(1, post.getId());
 		
 		return db.executeUpdate() > 0;
+	}
+	
+	@Override
+	// No MySQLPostDAO
+	public boolean deleteByUserId(int userId) throws ModelException {
+	    DBHandler db = new DBHandler();
+	    
+	    String sql = "DELETE FROM posts WHERE user_id = ?;";
+	    
+	    db.prepareStatement(sql);
+	    db.setInt(1, userId);
+	    
+	    return db.executeUpdate() >= 0;
 	}
 
 	@Override

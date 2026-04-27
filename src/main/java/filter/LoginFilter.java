@@ -11,7 +11,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 	
@@ -25,8 +24,7 @@ public class LoginFilter implements Filter {
 		var httpResp = (HttpServletResponse) resp;
 		
 		String uri = httpReq.getRequestURI();
-		boolean isPublicResource = uri.endsWith("/login") 
-				|| uri.endsWith("login.jsp") 
+		boolean isPublicResource = uri.endsWith("login.jsp") || uri.endsWith("/login") 
 				|| uri.contains("/css/") || uri.contains("/js/");
 		
 		boolean isLoggedUser = 

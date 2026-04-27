@@ -1,0 +1,57 @@
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.navbar-custom {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+.table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #65676b;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+.post-content-preview {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #1c1e21;
+}
+.author-badge {
+    background-color: #e7f3ff;
+    color: #1877f2;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.btn-action {
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+.btn-edit { color: #1877f2; background: #e7f3ff; }
+.btn-edit:hover { background: #d0e7ff; }
+.btn-delete { color: #dc3545; background: #ffeef0; }
+.btn-delete:hover { background: #ffd0d6; }
+
+.btn-add-post {
+    background-color: #42b72a;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+.btn-add-post:hover {
+    background-color: #36a420;
+    color: white;
+}

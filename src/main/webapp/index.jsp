@@ -29,7 +29,7 @@
 	      <h1 class="my-4">Bem-vindo ao Facebook CRUD</h1>
 	      <div class="d-flex gap-3 flex-wrap justify-content-center">
 	        <a href="/facebook/users" class="btn btn-secondary btn-lg">Usuários</a>
-	        <a href="#" class="btn btn-secondary btn-lg">Posts</a>
+	        <a href="/facebook/posts" class="btn btn-secondary btn-lg">Posts</a>
 	      </div>
 	    </main>
 	

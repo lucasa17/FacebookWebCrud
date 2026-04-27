@@ -1,0 +1,51 @@
+body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .register-container {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .card-user {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 10px 15px;
+            background-color: #f5f6f7;
+            border: 1px solid #dddfe2;
+        }
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+        .btn-register {
+            background-color: #00a400;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            transition: background 0.3s;
+        }
+        .btn-register:hover {
+            background-color: #008a00;
+            color: white;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #4b4f56;
+            margin-left: 2px;
+        }
+        .gender-box {
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f5f6f7;
+            display: flex;
+            justify-content: space-between;
+        }
